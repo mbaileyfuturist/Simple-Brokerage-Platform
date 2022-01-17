@@ -1,0 +1,72 @@
+.AppTitle{
+    margin-top: 4%;
+    margin-left: 4%;
+    font-size:150%;
+    font-weight:bold;
+}
+.searchContainer{
+    margin-left: 35%;
+}
+.Search{
+    padding:8px;
+    font-size: 20px;
+    margin:5%;
+    border: solid 2px black;
+    border-radius:10px;
+}
+.searchButton{
+    padding:8px;
+    font-size:20px;
+    border-radius:10px;
+}
+.title{
+    margin-left: 33%;
+    font-size:150%;
+    font-weight: bold;
+}
+.previousOrdersTitle{
+    margin-top: 8%;
+    margin-left: 0%;
+    font-size:150%;
+    font-weight:bold;
+}
+.NavWrapper{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    margin-left: 15%;
+}
+.NavOne{
+    grid-column: 1 / 3;
+    grid-row: 1;
+}
+
+.NavTwo{
+    grid-column: 2 / 3;
+    grid-row: 1;
+}
+
+.NavThree{
+    grid-column: 3 / 3;
+    grid-row: 1;
+}
+.ListWrapper{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    margin-left: 5%;
+}
+.ListOne {
+    grid-column: 1 / 2;
+    grid-row: 1;
+}
+.ListTwo {
+    grid-column: 2 / 2;
+    grid-row: 1;
+}
+a{
+    text-decoration: none;
+    color:black;
+}

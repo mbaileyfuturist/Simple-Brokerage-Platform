@@ -1,0 +1,13 @@
+.title{
+    text-align:center;
+}
+.buttonContainer{
+    margin:0 auto;
+    text-align: center;
+}
+.Button{
+    padding:8px;
+    font-size:20px;
+    border-radius:10px;
+    margin-bottom: 2%;
+}

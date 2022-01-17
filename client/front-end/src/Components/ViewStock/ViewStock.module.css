@@ -1,0 +1,18 @@
+.stockContainer{
+    border: solid 3px black;
+    margin-bottom:10px;
+    width:80%;
+    margin:0 auto;
+}
+.buttonContainer{
+    text-align: center;
+    margin-bottom: 2%;
+}
+.stockButton{
+    font-size: 110%;
+    padding:0.75%;
+}
+
+.secondButton{
+    margin-left:2%;
+}

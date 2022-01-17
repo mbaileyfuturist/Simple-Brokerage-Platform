@@ -1,0 +1,7 @@
+.cardContainer{
+    border: solid 1px black;
+    width:25%;
+    margin:0 auto;
+    text-align: center;
+    margin-bottom: 2%;
+}
