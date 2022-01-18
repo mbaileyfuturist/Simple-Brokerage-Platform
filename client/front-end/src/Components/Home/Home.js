@@ -115,7 +115,7 @@ const Home = () => {
                 <p className={classes.title}>Watch List</p>
                 {
                     watchList.map(security => {
-                        return <Stock key={security.ticker} ticker={security.ticker} name={security.name} type={security.type} watchList={security.watchList}/>
+                        return <Stock key={'watch-list-' + security.ticker} ticker={security.ticker} name={security.name} type={security.type} watchList={security.watchList}/>
                     })
                 }
             </div>

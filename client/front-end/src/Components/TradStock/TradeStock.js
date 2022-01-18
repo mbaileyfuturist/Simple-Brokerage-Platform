@@ -15,7 +15,7 @@ const TradeStock = props => {
     const [marketOrder, setMarketOrder] = useState('Buy')
     const [quantity, setQuantity] = useState('')
     const [TIF, setTIF] = useState('Day-Only Order (DAY)')
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
 
     useEffect(() => {
       
@@ -80,20 +80,20 @@ const TradeStock = props => {
       //Check if there are available funds to make the order.
       try{
 
-        let newTotal = 0
-
         if(marketOrder === 'BUY'){
 
-          const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json')
-          const totalFunds = response.data
+          setError(null)
 
-          if(totalPrice < totalFunds){
+          const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+          let balancesObject = response.data
 
-            newTotal = totalFunds - totalPrice;
-            newTotal = newTotal.toFixed(2)
+          if(totalPrice < balancesObject.totalAvailableFunds){
+
+            balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) - totalPrice;
+            balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) + totalPrice
             
             //Update the new total
-            const responseOne = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json', newTotal)
+            const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
 
           }else{
             setError('Insufficient funds, please add additional funds to complete the order.')

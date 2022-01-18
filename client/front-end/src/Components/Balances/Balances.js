@@ -8,7 +8,8 @@ const Balances = () => {
 
     const history = useHistory()
 
-    const [newFunds, setNewFunds] = useState('')
+    const [deposit, setDeposite] = useState('')
+    const [withdraw, setWithdraw] = useState(0)
     const [availableFunds, setAvailableFunds] = useState(0)
     const [totalHoldings, setTotalHoldings] = useState(0)
     const [totalAssets, setTotalAssets] = useState(0)
@@ -21,8 +22,6 @@ const Balances = () => {
 
                 const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
                 const dataObject = response.data
-
-                console.log(dataObject)
                 
                 setAvailableFunds(dataObject.totalAvailableFunds)
                 setTotalHoldings(dataObject.totalHoldings)
@@ -37,21 +36,21 @@ const Balances = () => {
     },[])
 
     const changeAddFunds = event => {
-        setNewFunds(parseInt(event.target.value))
+        setDeposite(parseInt(event.target.value))
     }
 
-    const addFunds = async event => {
+    const depositFunds = async event => {
 
         event.preventDefault();
         
         //Get the current available funds.
-        let totalAvailableFunds = 0
+        let balances = {}
         try{
 
-            const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json')
-            const currentAvailableBalance = response.data
-            console.log(currentAvailableBalance)
-            totalAvailableFunds = currentAvailableBalance + newFunds
+            const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+            balances = response.data
+            balances.totalAvailableFunds = parseInt(balances.totalAvailableFunds) + deposit
+            balances.totalAssets = parseInt(balances.totalAssets) + deposit
             
         }catch(error){
             console.log(error)
@@ -59,11 +58,18 @@ const Balances = () => {
 
         try{
 
-            const response = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json', totalAvailableFunds)
+            const responseOne = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json', balances.totalAvailableFunds)
+            const responseTwo = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAssets.json', balances.totalAssets)
 
         }catch(error){
             console.log(error)
         }
+
+        setDeposite('')
+
+    }
+
+    const withdrawFunds = async () => {
 
     }
 
@@ -76,10 +82,10 @@ const Balances = () => {
             <div className={classes.TitleContainer}>
                 <p className={classes.Title}>Balances</p>
             </div>
-            <form className={classes.addFunds} onSubmit={addFunds}>
+            <form className={classes.addFunds} onSubmit={depositFunds}>
                 <p className={classes.Label}>Add funds</p>
-                <input className={classes.Input} type='text' placeholder='$0.00' onChange={changeAddFunds} value={newFunds}/>
-                <Button value='Add Funds' type='submit' className={classes.Button}/>
+                <input className={classes.Input} type='text' placeholder='$0.00' onChange={changeAddFunds} value={deposit}/>
+                <Button value='Deposit' type='submit' className={classes.Button}/>
             </form>
             <div className={classes.viewBalances}>
                 <p className={classes.Label}>Available Funds: ${availableFunds}</p>
