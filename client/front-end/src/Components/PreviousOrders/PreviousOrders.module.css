@@ -6,8 +6,17 @@
     text-align: center;
 }
 .Button{
-    padding:8px;
-    font-size:20px;
-    border-radius:10px;
-    margin-bottom: 2%;
+    font-size: 110%;
+    padding:1%;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.33);
+    text-align:center;
+    color:white;
+    background-color:#448FFF;
+    margin:0 auto;
+    font-weight: bold;
+}
+.Button:hover{
+    border: solid 3px black;
 }

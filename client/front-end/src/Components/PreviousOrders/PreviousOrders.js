@@ -47,7 +47,7 @@ const PreviousOrders = () => {
                         quantity={previousOrder.quantity} totalPrice={previousOrder.totalPrice}/>
             })}
             <div className={classes.buttonContainer}>
-            <Button className={classes.Button} value='back' onClick={navigateBack}/>
+            <Button className={classes.Button} value='Back' onClick={navigateBack}/>
             </div>
         </div>
     )

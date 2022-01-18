@@ -51,6 +51,7 @@ const TradeStock = props => {
 
       getStock()
       getQuote()
+
     }, [])
 
     const selectMarketOrder = event => {
@@ -77,6 +78,7 @@ const TradeStock = props => {
 
       const transaction = { 
         ticker:ticker,
+        name:stock.name,
         quote:quote,
         quantity:quantity,
         marketOrder:marketOrder,

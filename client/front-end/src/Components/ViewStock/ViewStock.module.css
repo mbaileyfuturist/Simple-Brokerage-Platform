@@ -23,6 +23,7 @@
     margin-bottom:10px;
     width:60%;
     margin:0 auto;
+    margin-top:10%;
 }
 .buttonContainer{
     text-align: center;
@@ -35,7 +36,9 @@
     box-sizing: border-box;
     box-shadow: 5px 5px 5px 3px rgba(0, 0, 0, 0.33)
 }
-
+.stockButton:hover{
+    border: solid 2.5px black;
+}
 .firstButton{
     background-color: #6AFF52;
     color:white;
