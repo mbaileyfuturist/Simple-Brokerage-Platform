@@ -38,11 +38,13 @@ const ViewStock = props => {
 
     return(
         <div className={classes.stockContainer}>
-            <p>Ticker: {stock.ticker}</p>
-            <p>Company Name: {stock.name}</p>
-            <p>Description: {stock.description}</p>
+            <div className={classes.cardHeader}>
+                <p className={classes.cardTitle}>{stock.ticker}</p>
+                <p className={classes.cardTitle}>{stock.name}</p>
+            </div>
+            <p className={classes.description}>{stock.description}</p>
             <div className={classes.buttonContainer}>
-                <Button className={classes.stockButton} value='Back' onClick={navigateBack}/>
+                <Button className={classes.stockButton + ' ' + classes.firstButton} value='Back' onClick={navigateBack}/>
                 <Button className={classes.stockButton + ' ' + classes.secondButton} value='Trade' onClick={tradeStock}/>
             </div>
         </div>

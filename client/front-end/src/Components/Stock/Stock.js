@@ -51,9 +51,11 @@ const Stock = props => {
 
     return(
         <div className={classes.stockContainer}>
-            <p className={classes.Title}>{props.ticker + ' ' + props.name + ' ' + props.type}</p> 
+            <div className={classes.textContainer}>
+                <p className={classes.Title}>{props.ticker + ' ' + props.name + ' ' + props.type}</p> 
+            </div>
             <div className={classes.buttonContainer}>
-                {props.watchList ? <Button onClick={removeFromWatchList} className={classes.stockButton} value={'Remove From Watchlist'}/> : <Button onClick={addToWatchList} className={classes.stockButton} value={'Add To Watchlist'}/>}
+                {props.watchList ? <Button onClick={removeFromWatchList} className={classes.stockButton + ' ' + classes.firstButton} value={'Remove From Watchlist'}/> : <Button onClick={addToWatchList} className={classes.stockButton + ' ' + classes.firstButton} value={'Add To Watchlist'}/>}
                 <Button onClick={viewStock} className={classes.stockButton + ' ' + classes.secondButton} value={'View'}/>
             </div>
         </div>

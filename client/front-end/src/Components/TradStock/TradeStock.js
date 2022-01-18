@@ -103,13 +103,15 @@ const TradeStock = props => {
         <div className='App'>
 
           <form onSubmit={completeTransaction} className={classes.transactionContainer}>
-            <h1>{stock.ticker}</h1>
-            <h1>{stock.name}</h1>
-            <h1>${quote}</h1>
+            <div className={classes.formHeader}>
+            <p className={classes.formTitle}>{stock.ticker}</p>
+            <p className={classes.formTitle}>{stock.name}</p>
+            <p className={classes.formTitle}>${quote}</p>
+            </div>
 
             <div>
-              <p>Order Type</p>
-              <select id="market-order" onChange={selectMarketOrder} value={marketOrder}>
+              <p className={classes.Label}>Order Type</p>
+              <select className={classes.Selector} id="market-order" onChange={selectMarketOrder} value={marketOrder}>
                 <option value="Buy" defaultValue>Buy</option>
                 <option value="Sell">Sell</option>
                 <option value="Limit Buy">Limit Buy</option>
@@ -120,16 +122,16 @@ const TradeStock = props => {
             </div>
 
             <div>
-              <input type='text' placeholder='quantity' onChange={changeQuantity} value={quantity}/>
+              <input className={classes.Input} type='text' placeholder='Quantity' onChange={changeQuantity} value={quantity}/>
             </div>
 
             <div>
-              <p>Cost of Trade: ${(quote*quantity).toFixed(2)}</p>
+              <p className={classes.Label}><b>Total: $</b>{(quote*quantity).toFixed(2)}</p>
             </div>
 
             <div>
-              <p>TIF</p>
-              <select id="TIF" onChange={selectTIF} value={TIF}>
+              <p className={classes.Label}>TIF</p>
+              <select className={classes.Selector} id="TIF" onChange={selectTIF} value={TIF}>
                 <option value="DAY" defaultValue>Day-Only Order (DAY)</option>
                 <option value="FOK">Fill or Kill Order (FOK)</option>
                 <option value="GTC">Until Cancelled Order (GTC)</option>
@@ -139,8 +141,8 @@ const TradeStock = props => {
             </div>
 
             <div className={classes.buttonContainer}>
-              <Button onClick={navigateBack} value='Back'/>
-              <Button type='submit' value='Complete Transaction'/>
+              <Button className={classes.stockButton + ' ' + classes.firstButton} onClick={navigateBack} value='Back'/>
+              <Button className={classes.stockButton + ' ' +classes.secondButton} type='submit' value='Complete Transaction'/>
             </div>
           </form>
 

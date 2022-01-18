@@ -92,7 +92,7 @@ const Home = () => {
                 <Link to='/PreviousOrders'><p className={classes.previousOrdersTitle}>Previous Orders</p></Link>
             </div>
             <div className={classes.NavThree}>
-                <input className={classes.Search} placeholder={'search symbol'} onChange={changeSecurity}/>
+                <input className={classes.Search} placeholder={'symbol'} onChange={changeSecurity}/>
                 <Button className={classes.searchButton} value='Search' onClick={searchStock}/>
             </div>
         </div>
