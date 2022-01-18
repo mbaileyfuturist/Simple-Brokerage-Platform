@@ -15,6 +15,7 @@ const TradeStock = props => {
     const [marketOrder, setMarketOrder] = useState('Buy')
     const [quantity, setQuantity] = useState('')
     const [TIF, setTIF] = useState('Day-Only Order (DAY)')
+    const [error, setError] = useState('')
 
     useEffect(() => {
       
@@ -73,9 +74,41 @@ const TradeStock = props => {
     const completeTransaction = async event => {
 
       event.preventDefault();
-      
-      const totalPrice = quote*quantity
 
+      const totalPrice = quote*quantity
+      
+      //Check if there are available funds to make the order.
+      try{
+
+        let newTotal = 0
+
+        if(marketOrder === 'BUY'){
+
+          const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json')
+          const totalFunds = response.data
+
+          if(totalPrice < totalFunds){
+
+            newTotal = totalFunds - totalPrice;
+            newTotal = newTotal.toFixed(2)
+            
+            //Update the new total
+            const responseOne = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json', newTotal)
+
+          }else{
+            setError('Insufficient funds, please add additional funds to complete the order.')
+          }
+        }
+
+        if(marketOrder === 'SELL'){
+
+        }
+
+      }catch(error){
+        console.log(error)
+      }
+
+      //Make the order.
       const transaction = { 
         ticker:ticker,
         name:stock.name,
@@ -147,6 +180,7 @@ const TradeStock = props => {
               <Button className={classes.stockButton + ' ' +classes.secondButton} type='submit' value='Complete Transaction'/>
             </div>
           </form>
+          {error && <p className={classes.error}>{error}</p>}
 
         </div>
       );

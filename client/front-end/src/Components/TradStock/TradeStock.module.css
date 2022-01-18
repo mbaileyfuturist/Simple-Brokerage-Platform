@@ -64,3 +64,8 @@
     background-color: #448FFF;
     font-weight: bold;
 }
+.error{
+    color:rgb(255, 66, 66);
+    font-weight: bold;
+    font-size: 110%;
+}
