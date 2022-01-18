@@ -28,37 +28,49 @@
     font-size:150%;
     font-weight: bold;
 }
-.previousOrdersTitle{
-    margin-top: 6%;
+.balancesTitle{
+    margin-top: 8%;
     margin-left: 33%;
+    font-size:150%;
+    font-weight: bold;
+    color:white;
+}
+.previousOrdersTitle{
+    margin-top: 4%;
+    margin-left: 13%;
     font-size:150%;
     font-weight:bold;
     color:white;
 }
 .NavWrapper{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0px;
     grid-auto-rows: minmax(100px, auto);
     margin-left: 0%;
 }
 .NavOne{
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
     grid-row: 1;
     background-color: #448FFF;
     color:white;
 }
 
 .NavTwo{
-    grid-column: 2 / 3;
+    grid-column: 2 / 4;
     grid-row: 1;
     background-color: #505050;
 }
 
 .NavThree{
-    grid-column: 3 / 3;
+    grid-column: 3 / 4;
     grid-row: 1;
     background-color: #999595;
+}
+.NavFour{
+    grid-column: 4 / 4;
+    grid-row: 1;
+    background-color: #505050;
 }
 .ListWrapper{
     display:grid;

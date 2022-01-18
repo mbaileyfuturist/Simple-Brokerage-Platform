@@ -95,6 +95,9 @@ const Home = () => {
                 <input className={classes.Search} placeholder={'symbol'} onChange={changeSecurity}/>
                 <Button className={classes.searchButton} value='Search' onClick={searchStock}/>
             </div>
+            <div className={classes.NavFour}>
+                <Link to='/Balances'><p className={classes.balancesTitle}>Balances</p></Link>
+            </div>
         </div>
 
         <div className={classes.ListWrapper}>

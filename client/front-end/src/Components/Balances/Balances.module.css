@@ -1,0 +1,45 @@
+.Input{
+    border:solid 2px black;
+    border-radius: 5%;
+    padding:1%;
+    margin-top:2%;
+    width:26.5%;
+    font-weight:bold;
+    font-size: 100%;
+    margin:0 auto;
+}
+.TitleContainer{
+    background-color:#505050;
+}
+.BalancesContainer{
+    margin:0 auto;
+    width:30%;
+    border:solid 2px black;
+    margin-top:10%;
+    text-align: center;
+}
+.Title{
+    font-size: 150%;
+    font-weight:bold;
+    margin-top:0%;
+    padding-top:3%;
+    padding-bottom:3%;
+    color:white;
+}
+.Label{
+    font-size: 110%;
+    font-weight:bold;
+}
+.Button{
+    padding:1%;
+    font-size:100%;
+    font-weight: bold;
+    border-radius:5px;
+    color:white;
+    background-color: #448FFF;
+    border:black solid 2px;
+    margin-left: 1%;
+}
+.BottomButton{
+    margin-bottom:5%;
+}
