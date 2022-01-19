@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import PreviousStock from '../PreviousStock/PreviousStock'
+import PreviousOrder from '../PreviousOrder/PreviousOrder'
 import classes from './PreviousOrders.module.css'
 import Button from '../Button/Button'
 import { useHistory } from 'react-router-dom'
@@ -43,7 +43,7 @@ const PreviousOrders = () => {
         <div>
             <h1 className={classes.title}>Previous Stocks</h1>
             {previousOrders.map(previousOrder => {
-                return <PreviousStock key={previousOrder.ticker} ticker={previousOrder.ticker} name={previousOrder.name} quote={previousOrder.quote} marketOrder={previousOrder.marketOrder} 
+                return <PreviousOrder key={previousOrder.ticker} ticker={previousOrder.ticker} name={previousOrder.name} quote={previousOrder.quote} marketOrder={previousOrder.marketOrder} 
                         quantity={previousOrder.quantity} totalPrice={previousOrder.totalPrice}/>
             })}
             <div className={classes.buttonContainer}>

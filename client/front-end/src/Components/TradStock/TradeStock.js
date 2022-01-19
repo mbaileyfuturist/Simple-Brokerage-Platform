@@ -79,6 +79,7 @@ const TradeStock = props => {
       
       //Check if there are available funds to make the order.
       try{
+        console.log(marketOrder)
 
         if(marketOrder === 'BUY'){
 
@@ -87,7 +88,7 @@ const TradeStock = props => {
           const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
           let balancesObject = response.data
 
-          if(totalPrice < balancesObject.totalAvailableFunds){
+          if(totalPrice < parseInt(balancesObject.totalAvailableFunds)){
 
             balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) - totalPrice;
             balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) + totalPrice
@@ -95,33 +96,60 @@ const TradeStock = props => {
             //Update the new total
             const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
 
+            //Make the order.
+            const transaction = { 
+              ticker:ticker,
+              name:stock.name,
+              quote:quote,
+              quantity:quantity,
+              marketOrder:marketOrder,
+              totalPrice:totalPrice.toFixed(2),
+              TIF:TIF
+            }
+
+            try{
+
+              const response = axios.post('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Transactions.json', transaction)
+
+            }catch(error){
+              console.log(error)
+            }
+
           }else{
             setError('Insufficient funds, please add additional funds to complete the order.')
           }
         }
 
-        if(marketOrder === 'SELL'){
+        if(marketOrder === 'Sell'){
 
+          setError(null)
+
+          //1. Fetch all of the orders where ticker === ticker.
+
+          //2. Gather the quantity for each order and sum them all together.
+
+          //3. check if summed order quantity <= quantity, if so continue, if not then set error.
+
+
+          // const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Transactions.json')
+          // let transactionsObject = response.data
+
+          // if(transactionsObject.quantity <= quantity){
+
+          //   const getResponse = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+          //   let balancesObject = response.data
+
+          //   const totalPrice = quote*quantity
+
+          //   balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) - totalPrice
+          //   balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) + totalPrice
+
+          //   const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
+
+          // }else{
+          //   setError('Insufficient number of stocks, please select a valid quantity to sell.')
+          // }
         }
-
-      }catch(error){
-        console.log(error)
-      }
-
-      //Make the order.
-      const transaction = { 
-        ticker:ticker,
-        name:stock.name,
-        quote:quote,
-        quantity:quantity,
-        marketOrder:marketOrder,
-        totalPrice:totalPrice,
-        TIF:TIF
-      }
-
-      try{
-
-        const response = axios.post('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/transactions.json', transaction)
 
       }catch(error){
         console.log(error)
@@ -177,7 +205,7 @@ const TradeStock = props => {
 
             <div className={classes.buttonContainer}>
               <Button className={classes.stockButton + ' ' + classes.firstButton} onClick={navigateBack} value='Back'/>
-              <Button className={classes.stockButton + ' ' +classes.secondButton} type='submit' value='Complete Transaction'/>
+              <Button disabled={quantity === ''} className={classes.stockButton + ' ' +classes.secondButton} type='submit' value='Complete Transaction'/>
             </div>
           </form>
           {error && <p className={classes.error}>{error}</p>}
