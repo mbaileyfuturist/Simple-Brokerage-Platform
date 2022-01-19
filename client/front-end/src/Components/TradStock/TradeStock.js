@@ -79,7 +79,6 @@ const TradeStock = props => {
       
       //Check if there are available funds to make the order.
       try{
-        console.log(marketOrder)
 
         if(marketOrder === 'BUY'){
 
@@ -92,12 +91,12 @@ const TradeStock = props => {
 
             balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) - totalPrice;
             balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) + totalPrice
-            
+                        
             //Update the new total
             const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
 
             //Make the order.
-            const transaction = { 
+            const order = { 
               ticker:ticker,
               name:stock.name,
               quote:quote,
@@ -109,7 +108,7 @@ const TradeStock = props => {
 
             try{
 
-              const response = axios.post('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Transactions.json', transaction)
+              const response = axios.post('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Orders.json', order)
 
             }catch(error){
               console.log(error)
@@ -124,31 +123,59 @@ const TradeStock = props => {
 
           setError(null)
 
-          //1. Fetch all of the orders where ticker === ticker.
+          const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Orders.json')
+          let orderObjects = response.data
 
-          //2. Gather the quantity for each order and sum them all together.
+          console.log(orderObjects)
 
-          //3. check if summed order quantity <= quantity, if so continue, if not then set error.
+          let matchingOrders = []
+          let matchingOrdersQuantitySum = 0
+          for(let key in orderObjects){
+            if(orderObjects[key].ticker === ticker){
+              matchingOrders.push(orderObjects[key])
+              matchingOrdersQuantitySum += orderObjects[key].quantity
+            }
+          }
 
+          if(matchingOrdersQuantitySum > parseInt(quantity)){
 
-          // const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Transactions.json')
-          // let transactionsObject = response.data
+           try{
 
-          // if(transactionsObject.quantity <= quantity){
+            const getResponse = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+            let balancesObject = getResponse.data
 
-          //   const getResponse = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
-          //   let balancesObject = response.data
+            const totalPrice = quote*quantity
 
-          //   const totalPrice = quote*quantity
+            balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) - totalPrice
+            balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) + totalPrice
+            
+            const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
 
-          //   balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) - totalPrice
-          //   balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) + totalPrice
+           }catch(error){
+             console.log(error)
+           }
 
-          //   const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
+            try{
 
-          // }else{
-          //   setError('Insufficient number of stocks, please select a valid quantity to sell.')
-          // }
+              const order = { 
+                ticker:ticker,
+                name:stock.name,
+                quote:quote,
+                quantity:quantity,
+                marketOrder:marketOrder,
+                totalPrice:totalPrice.toFixed(2),
+                TIF:TIF
+              }
+  
+              const putResponse = await axios.post('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Orders.json', order)
+
+            }catch(error){
+              console.log(error)
+            }
+
+          }else{
+             setError('Insufficient number of stocks, please select a valid quantity to sell.')
+          }
         }
 
       }catch(error){

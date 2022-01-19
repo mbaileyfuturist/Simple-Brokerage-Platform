@@ -122,12 +122,12 @@ const Balances = () => {
             </div>
             <form className={classes.addFunds} onSubmit={withdrawFunds}>
                 <p className={classes.Label}>Withdraw Funds</p>
-                <input className={classes.Input} type='text' placeholder='$0.00' onChange={changeWithdrawFunds} value={withdraw}/>
+                <input className={classes.Input} type='number' placeholder='$0.00' onChange={changeWithdrawFunds} value={withdraw}/>
                 <Button value='Withdraw' type='submit' className={classes.Button}/>
             </form>
             <form className={classes.addFunds} onSubmit={depositFunds}>
                 <p className={classes.Label}>Deposit Funds</p>
-                <input className={classes.Input} type='text' placeholder='$0.00' onChange={changeDepositFunds} value={deposit}/>
+                <input className={classes.Input} type='number' placeholder='$0.00' onChange={changeDepositFunds} value={deposit}/>
                 <Button value='Deposit' type='submit' className={classes.Button}/>
             </form>
             <div className={classes.viewBalances}>

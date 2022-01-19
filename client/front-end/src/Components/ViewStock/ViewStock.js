@@ -6,7 +6,7 @@ import classes from './ViewStock.module.css'
 import Button from '../Button/Button'
 import { useHistory } from 'react-router-dom'
 
-const ViewStock = props => {
+const ViewStock = () => {
 
     const params = useParams()
     const ticker = params.symbol.substring(1)
