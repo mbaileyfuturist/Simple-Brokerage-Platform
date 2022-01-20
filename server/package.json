@@ -1,11 +1,17 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Backend for 'The Simple Brokerage Platform' project.",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"node app.js",
+    "devStart":"nodemon app.js"
   },
-  "author": "Micheal Bailey",
-  "license": "ISC"
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
 }
