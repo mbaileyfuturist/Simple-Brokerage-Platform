@@ -21,7 +21,7 @@ const Balances = () => {
 
             try{
 
-                const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+                const response = await axios.get('http://localhost:3001/Balances')
                 const dataObject = response.data
                 
                 setAvailableFunds(dataObject.totalAvailableFunds)
@@ -52,7 +52,7 @@ const Balances = () => {
         let balances = {}
         try{
 
-            const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+            const response = await axios.get('http://localhost:3001/Balances')
             balances = response.data
             balances.totalAvailableFunds = parseInt(balances.totalAvailableFunds) + deposit
             balances.totalAssets = parseInt(balances.totalAssets) + deposit
@@ -63,8 +63,26 @@ const Balances = () => {
 
         try{
 
-            const responseOne = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json', balances.totalAvailableFunds)
-            const responseTwo = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAssets.json', balances.totalAssets)
+            const totalAvailableFunds = balances.totalAvailableFunds
+            const response = await axios.put('http://localhost:3001/totalAvailableFunds', {totalAvailableFunds: totalAvailableFunds})
+
+            if(response.status !== 200){
+                throw new Error('Failed to update Total Available Funds.')
+            }
+
+        }catch(error){
+            console.log(error)
+        }
+
+        try{
+
+            const totalAssets = balances.totalAssets
+            const response = await axios.put('http://localhost:3001/totalAssets', {totalAssets: totalAssets})
+
+            if(response.status !== 200){
+                throw new Error('Failed to update total assets.')
+            }
+
 
         }catch(error){
             console.log(error)
@@ -82,7 +100,7 @@ const Balances = () => {
          let balances = {}
          try{
  
-             const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+             const response = await axios.get('http://localhost:3001/Balances')
              balances = response.data
              
              if((balances.totalAvailableFunds - withdraw) < 0){
@@ -98,10 +116,27 @@ const Balances = () => {
          }
  
          try{
+
+            const totalAvailableFunds = balances.totalAvailableFunds
+            const response = await axios.put('http://localhost:3001/totalAvailableFunds', {totalAvailableFunds:totalAvailableFunds})
+
+            if(response.status !== 200){
+                throw new Error('Unable to update Total Available Funds.')
+            }
  
-             const responseOne = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAvailableFunds.json', balances.totalAvailableFunds)
-             const responseTwo = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances/totalAssets.json', balances.totalAssets)
- 
+         }catch(error){
+             console.log(error)
+         }
+
+         try{
+
+            const totalAssets = balances.totalAssets
+            const response = await axios.put('http://localhost:3001/totalAssets', {totalAssets:totalAssets})
+
+            if(response.status !== 200){
+                throw new Error('Unable to update Total Assets.')
+            }
+
          }catch(error){
              console.log(error)
          }

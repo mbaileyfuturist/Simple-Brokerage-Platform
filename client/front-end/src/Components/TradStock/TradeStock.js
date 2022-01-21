@@ -84,7 +84,7 @@ const TradeStock = props => {
 
           setError(null)
 
-          const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+          const response = await axios.get('http://localhost:3001/Balances')
           let balancesObject = response.data
 
           if(totalPrice < parseInt(balancesObject.totalAvailableFunds)){
@@ -93,7 +93,7 @@ const TradeStock = props => {
             balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) + totalPrice
                         
             //Update the new total
-            const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
+            const putResponse = await axios.put('http://localhost:3001/updateBalances', {balancesObject:balancesObject})
 
             //Make the order.
             const order = { 
@@ -108,7 +108,7 @@ const TradeStock = props => {
 
             try{
 
-              const response = axios.post('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Orders.json', order)
+              const response = await axios.post('http://localhost:3001/orders', {order:order})
 
             }catch(error){
               console.log(error)
@@ -123,7 +123,7 @@ const TradeStock = props => {
 
           setError(null)
 
-          const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Orders.json')
+          const response = await axios.get('http://localhost:3001/getOrders')
           let orderObjects = response.data
 
           console.log(orderObjects)
@@ -141,7 +141,7 @@ const TradeStock = props => {
 
            try{
 
-            const getResponse = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json')
+            const getResponse = await axios.get('http://localhost:3001/Balances')
             let balancesObject = getResponse.data
 
             const totalPrice = quote*quantity
@@ -149,7 +149,7 @@ const TradeStock = props => {
             balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) - totalPrice
             balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) + totalPrice
             
-            const putResponse = await axios.put('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Balances.json', balancesObject)
+            const putResponse = await axios.put('http://localhost:3001/updateBalances', {balancesObject:balancesObject})
 
            }catch(error){
              console.log(error)
@@ -167,7 +167,7 @@ const TradeStock = props => {
                 TIF:TIF
               }
   
-              const putResponse = await axios.post('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/Orders.json', order)
+              const putResponse = await axios.post('http://localhost:3001/orders', {order:order})
 
             }catch(error){
               console.log(error)
