@@ -1,5 +1,4 @@
 # Simple-Brokerage-Platform
-<b>Web App is currently undergoing security changes.</b></br></br>
 
 Stock data comes from the Polygon.io REST API.</br>
 The link for the website can be found here: <a>https://polygon.io/</a></br>
