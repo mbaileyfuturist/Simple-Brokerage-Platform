@@ -3,12 +3,16 @@ import { useState, useEffect } from 'react'
 import Button from '../Button/Button'
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios'
+import MainNavigation from '../MainNavigation/MainNavigation'
 
 const TradeStock = props => {
 
     const history = useHistory()
     const params = useParams()
     const ticker = params.symbol.substring(1)
+    const myStorage = window.localStorage
+    const id = myStorage.getItem('id')
+    const idToken = myStorage.getItem('idToken')
 
     const [stock, setStock] = useState('')
     const [quote, setQuote] = useState('')
@@ -75,7 +79,7 @@ const TradeStock = props => {
 
       event.preventDefault();
 
-      const totalPrice = quote*quantity
+      let totalPrice = quote*quantity
       
       //Check if there are available funds to make the order.
       try{
@@ -84,16 +88,17 @@ const TradeStock = props => {
 
           setError(null)
 
-          const response = await axios.get('http://localhost:3001/Balances')
+          const response = await axios.post('http://localhost:3001/Balances', {id:id, idToken:idToken})
           let balancesObject = response.data
 
           if(totalPrice < parseInt(balancesObject.totalAvailableFunds)){
 
+            //Balance calculations
             balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) - totalPrice;
             balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) + totalPrice
-                        
+                  
             //Update the new total
-            const putResponse = await axios.put('http://localhost:3001/updateBalances', {balancesObject:balancesObject})
+            const putResponse = await axios.post('http://localhost:3001/updateBalances', {balancesObject:balancesObject, id:id, idToken:idToken})
 
             //Make the order.
             const order = { 
@@ -102,13 +107,13 @@ const TradeStock = props => {
               quote:quote,
               quantity:quantity,
               marketOrder:marketOrder,
-              totalPrice:totalPrice.toFixed(2),
+              totalPrice:totalPrice,
               TIF:TIF
             }
 
             try{
 
-              const response = await axios.post('http://localhost:3001/orders', {order:order})
+              const response = await axios.post('http://localhost:3001/orders', {order:order, id:id, idToken:idToken})
 
             }catch(error){
               console.log(error)
@@ -123,7 +128,7 @@ const TradeStock = props => {
 
           setError(null)
 
-          const response = await axios.get('http://localhost:3001/getOrders')
+          const response = await axios.post('http://localhost:3001/getOrders', {id:id, idToken:idToken})
           let orderObjects = response.data
 
           console.log(orderObjects)
@@ -141,15 +146,14 @@ const TradeStock = props => {
 
            try{
 
-            const getResponse = await axios.get('http://localhost:3001/Balances')
+            const getResponse = await axios.post('http://localhost:3001/Balances', {id:id, idToken:idToken})
             let balancesObject = getResponse.data
 
-            const totalPrice = quote*quantity
-
+            //Balance Calculations
             balancesObject.totalHoldings = parseInt(balancesObject.totalHoldings) - totalPrice
             balancesObject.totalAvailableFunds = parseInt(balancesObject.totalAvailableFunds) + totalPrice
             
-            const putResponse = await axios.put('http://localhost:3001/updateBalances', {balancesObject:balancesObject})
+            const putResponse = await axios.post('http://localhost:3001/updateBalances', {id:id, balancesObject:balancesObject, idToken:idToken})
 
            }catch(error){
              console.log(error)
@@ -163,11 +167,11 @@ const TradeStock = props => {
                 quote:quote,
                 quantity:quantity,
                 marketOrder:marketOrder,
-                totalPrice:totalPrice.toFixed(2),
+                totalPrice:totalPrice,
                 TIF:TIF
               }
   
-              const putResponse = await axios.post('http://localhost:3001/orders', {order:order})
+              const putResponse = await axios.post('http://localhost:3001/orders', {id:id, order:order, idToken:idToken})
 
             }catch(error){
               console.log(error)
@@ -190,8 +194,8 @@ const TradeStock = props => {
     }
 
     return (
-        <div className='App'>
-
+        <div>
+          <MainNavigation />
           <form onSubmit={completeTransaction} className={classes.transactionContainer}>
             <div className={classes.formHeader}>
             <p className={classes.formTitle}>{stock.ticker}</p>
@@ -204,10 +208,10 @@ const TradeStock = props => {
               <select className={classes.Selector} id="market-order" onChange={selectMarketOrder} value={marketOrder}>
                 <option value="Buy" defaultValue>Buy</option>
                 <option value="Sell">Sell</option>
-                <option value="Limit Buy">Limit Buy</option>
+                {/* <option value="Limit Buy">Limit Buy</option>
                 <option value="Limit Sell">Limit Sell</option>
                 <option value="Stop Buy">Stop Buy</option>
-                <option value="Stop Sell">Stop Sell</option>
+                <option value="Stop Sell">Stop Sell</option> */}
               </select>
             </div>
 
@@ -232,7 +236,7 @@ const TradeStock = props => {
 
             <div className={classes.buttonContainer}>
               <Button className={classes.stockButton + ' ' + classes.firstButton} onClick={navigateBack} value='Back'/>
-              <Button disabled={quantity === ''} className={classes.stockButton + ' ' +classes.secondButton} type='submit' value='Complete Transaction'/>
+              <Button disabled={quantity === ''} className={classes.stockButton + ' ' + classes.secondButton} type='submit' value='Complete Transaction'/>
             </div>
           </form>
           {error && <p className={classes.error}>{error}</p>}

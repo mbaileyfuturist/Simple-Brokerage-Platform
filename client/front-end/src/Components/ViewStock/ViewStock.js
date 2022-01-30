@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, Fragment } from 'react'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 import classes from './ViewStock.module.css'
 import Button from '../Button/Button'
 import { useHistory } from 'react-router-dom'
+import MainNavigation from '../MainNavigation/MainNavigation'
 
 const ViewStock = () => {
 
@@ -37,17 +38,20 @@ const ViewStock = () => {
     }
 
     return(
-        <div className={classes.stockContainer}>
-            <div className={classes.cardHeader}>
-                <p className={classes.cardTitle}>{stock.ticker}</p>
-                <p className={classes.cardTitle}>{stock.name}</p>
+        <Fragment>
+            <MainNavigation />
+            <div className={classes.stockContainer}>
+                <div className={classes.cardHeader}>
+                    <p className={classes.cardTitle}>{stock.ticker}</p>
+                    <p className={classes.cardTitle}>{stock.name}</p>
+                </div>
+                <p className={classes.description}>{stock.description}</p>
+                <div className={classes.buttonContainer}>
+                    <Button className={classes.stockButton + ' ' + classes.firstButton} value='Back' onClick={navigateBack}/>
+                    <Button className={classes.stockButton + ' ' + classes.secondButton} value='Trade' onClick={tradeStock}/>
+                </div>
             </div>
-            <p className={classes.description}>{stock.description}</p>
-            <div className={classes.buttonContainer}>
-                <Button className={classes.stockButton + ' ' + classes.firstButton} value='Back' onClick={navigateBack}/>
-                <Button className={classes.stockButton + ' ' + classes.secondButton} value='Trade' onClick={tradeStock}/>
-            </div>
-        </div>
+        </Fragment>
     )
 }
 

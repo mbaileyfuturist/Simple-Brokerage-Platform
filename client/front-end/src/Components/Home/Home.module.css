@@ -1,76 +1,7 @@
-.AppTitle{
-    margin-top: 3%;
-    margin-left: 4%;
-    font-size:150%;
-    font-weight:bold;
-}
-.searchContainer{
-    margin-left: 35%;
-}
-.Search{
-    padding:8px;
-    font-size: 20px;
-    margin:5%;
-    border: solid 2px black;
-    border-radius:10px;
-}
-.searchButton{
-    padding:8px;
-    font-size:20px;
-    font-weight: bold;
-    border-radius:5px;
-    color:white;
-    background-color: #448FFF;
-    border:black solid 2px;
-}
 .title{
     margin-left: 33%;
     font-size:150%;
     font-weight: bold;
-}
-.balancesTitle{
-    margin-top: 8%;
-    margin-left: 33%;
-    font-size:150%;
-    font-weight: bold;
-    color:white;
-}
-.previousOrdersTitle{
-    margin-top: 4%;
-    margin-left: 13%;
-    font-size:150%;
-    font-weight:bold;
-    color:white;
-}
-.NavWrapper{
-    display:grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0px;
-    grid-auto-rows: minmax(100px, auto);
-    margin-left: 0%;
-}
-.NavOne{
-    grid-column: 1 / 4;
-    grid-row: 1;
-    background-color: #448FFF;
-    color:white;
-}
-
-.NavTwo{
-    grid-column: 2 / 4;
-    grid-row: 1;
-    background-color: #505050;
-}
-
-.NavThree{
-    grid-column: 3 / 4;
-    grid-row: 1;
-    background-color: #999595;
-}
-.NavFour{
-    grid-column: 4 / 4;
-    grid-row: 1;
-    background-color: #505050;
 }
 .ListWrapper{
     display:grid;
@@ -90,4 +21,27 @@
 a{
     text-decoration: none;
     color:black;
+}
+.Search{
+    margin-top:3%;
+    margin-left:2%;
+    padding:8px;
+    font-size: 20px;
+    border: solid 2px black;
+    border-radius:10px;
+}
+.searchButton{
+    padding:8px;
+    font-size:20px;
+    font-weight: bold;
+    border-radius:5px;
+    color:white;
+    background-color: #448FFF;
+    border:black solid 2px;
+    margin-top:3%;
+    margin-left:2%;
+    margin-bottom: 3%;
+}
+.searchButton:hover{
+   border:solid white 2px;
 }

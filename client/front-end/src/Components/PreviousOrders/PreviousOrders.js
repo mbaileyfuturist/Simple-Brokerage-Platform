@@ -4,11 +4,16 @@ import PreviousOrder from '../PreviousOrder/PreviousOrder'
 import classes from './PreviousOrders.module.css'
 import Button from '../Button/Button'
 import { useHistory } from 'react-router-dom'
+import MainNavigation from '../MainNavigation/MainNavigation'
 
 const PreviousOrders = () => {
 
     const [previousOrders, setPreviousOrders] = useState([])
     const history = useHistory()
+
+    const myStorage = window.localStorage
+    const id = myStorage.getItem('id')
+    const idToken = myStorage.getItem('idToken')
 
     useEffect(() => {
 
@@ -16,8 +21,9 @@ const PreviousOrders = () => {
 
             try{
 
-                const response = await axios.get('https://simple-brokerage-platfor-144bb-default-rtdb.firebaseio.com/transactions.json')
+                const response = await axios.post('http://localhost:3001/getOrders', {id:id, idToken:idToken})
                 const previousOrders = response.data
+                console.log(response.data)
 
                 let prevOrdersArray = []
                 for(let prevOrder in previousOrders){
@@ -41,9 +47,10 @@ const PreviousOrders = () => {
 
     return(
         <div>
-            <h1 className={classes.title}>Previous Stocks</h1>
+            <MainNavigation />
+            <h1 className={classes.title}>Previous Orders</h1>
             {previousOrders.map(previousOrder => {
-                return <PreviousOrder key={previousOrder.ticker} ticker={previousOrder.ticker} name={previousOrder.name} quote={previousOrder.quote} marketOrder={previousOrder.marketOrder} 
+                return <PreviousOrder key={Math.random()} ticker={previousOrder.ticker} name={previousOrder.name} quote={previousOrder.quote} marketOrder={previousOrder.marketOrder} 
                         quantity={previousOrder.quantity} totalPrice={previousOrder.totalPrice}/>
             })}
             <div className={classes.buttonContainer}>
