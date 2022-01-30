@@ -2,14 +2,14 @@ import { useState, useEffect, Fragment } from 'react'
 import axios from 'axios'
 import Stock from '../Stock/Stock'
 import classes from './Home.module.css'
+import MainNavigation from '../MainNavigation/MainNavigation'
 import Button from '../Button/Button'
-import { Link } from 'react-router-dom'
 
 const Home = () => {
 
     const [securities, setSecurities] = useState([])
-    const [searchSecurity, setSearchSecurity] = useState('')
     const [watchList, setWatchList] = useState([])
+    const [searchSecurity, setSearchSecurity] = useState('')
 
     useEffect(() => {
 
@@ -81,24 +81,16 @@ const Home = () => {
         }
     }
 
+    const searchContent = (
+        <Fragment className={classes.SearchWrapper}>
+                <input className={classes.Search} placeholder={'symbol'} onChange={changeSecurity}/>
+                <Button className={classes.searchButton} value='Search' onClick={searchStock}/>
+        </Fragment>
+    )
 
   return(
     <Fragment>
-        <div className={classes.NavWrapper}>
-            <div className={classes.NavOne}>
-                <p className={classes.AppTitle}>Simple Brokerage Platform</p>
-            </div>
-            <div className={classes.NavTwo}>
-                <Link to='/PreviousOrders'><p className={classes.previousOrdersTitle}>Previous Orders</p></Link>
-            </div>
-            <div className={classes.NavThree}>
-                <input className={classes.Search} placeholder={'symbol'} onChange={changeSecurity}/>
-                <Button className={classes.searchButton} value='Search' onClick={searchStock}/>
-            </div>
-            <div className={classes.NavFour}>
-                <Link to='/Balances'><p className={classes.balancesTitle}>Balances</p></Link>
-            </div>
-        </div>
+        <MainNavigation searchContent={searchContent} />
 
         <div className={classes.ListWrapper}>
             

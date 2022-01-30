@@ -1,0 +1,67 @@
+.NavWrapper{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+    grid-auto-rows: minmax(100px, auto);
+    margin-left: 0%;
+}
+.NavOne{
+    grid-column: 1 / 4;
+    grid-row: 1;
+    background-color: #999595;
+    color:white;
+}
+
+.NavTwo{
+    grid-column: 2 / 4;
+    grid-row: 1;
+    background-color: #505050;
+}
+
+.NavThree{
+    grid-column: 3 / 4;
+    grid-row: 1;
+    background-color: #999595;
+}
+.NavFour{
+    grid-column: 4 / 4;
+    grid-row: 1;
+    background-color: #505050;
+}
+
+.searchContainer{
+    margin-left: 35%;
+}
+
+.balancesTitle{
+    margin-top: 8%;
+    margin-left: 33%;
+    font-size:150%;
+    font-weight: bold;
+    color:white;
+}
+.previousOrdersTitle{
+    margin-top: 3%;
+    margin-left: 10%;
+    font-size:150%;
+    font-weight:bold;
+    color:white;
+}
+.logoutTitle{
+    margin-top: 8%;
+    margin-left: 35%;
+    font-size:150%;
+    font-weight:bold;
+    color:white;
+}
+.homeTitle{
+    margin-top: 4%;
+    margin-left: 20%;
+    font-size:150%;
+    font-weight:bold;
+    color:white;
+}
+.balancesTitle:hover, .previousOrdersTitle:hover, 
+.logoutTitle:hover, .homeTitle:hover{
+    color:#6AFF52;
+}

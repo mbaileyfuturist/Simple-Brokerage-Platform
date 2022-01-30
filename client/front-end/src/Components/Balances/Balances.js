@@ -3,10 +3,14 @@ import { useState, useEffect, Fragment} from 'react'
 import axios from 'axios'
 import Button from '../Button/Button'
 import { useHistory } from 'react-router-dom'
+import MainNavigation from '../MainNavigation/MainNavigation'
 
 const Balances = () => {
 
     const history = useHistory()
+    const myStorage = window.localStorage
+    const id = myStorage.getItem('id')
+    const idToken = myStorage.getItem('idToken')
 
     const [deposit, setDeposite] = useState('')
     const [withdraw, setWithdraw] = useState('')
@@ -21,7 +25,7 @@ const Balances = () => {
 
             try{
 
-                const response = await axios.get('http://localhost:3001/Balances')
+                const response = await axios.post('http://localhost:3001/Balances', {idToken:idToken, id:id})
                 const dataObject = response.data
                 
                 setAvailableFunds(dataObject.totalAvailableFunds)
@@ -52,8 +56,9 @@ const Balances = () => {
         let balances = {}
         try{
 
-            const response = await axios.get('http://localhost:3001/Balances')
+            const response = await axios.post('http://localhost:3001/Balances', {id:id, idToken:idToken})
             balances = response.data
+            console.log(balances)
             balances.totalAvailableFunds = parseInt(balances.totalAvailableFunds) + deposit
             balances.totalAssets = parseInt(balances.totalAssets) + deposit
             
@@ -64,7 +69,11 @@ const Balances = () => {
         try{
 
             const totalAvailableFunds = balances.totalAvailableFunds
-            const response = await axios.put('http://localhost:3001/totalAvailableFunds', {totalAvailableFunds: totalAvailableFunds})
+            const response = await axios.post('http://localhost:3001/totalAvailableFunds', {
+                id:id,
+                totalAvailableFunds: totalAvailableFunds,
+                idToken:idToken
+            })
 
             if(response.status !== 200){
                 throw new Error('Failed to update Total Available Funds.')
@@ -77,7 +86,11 @@ const Balances = () => {
         try{
 
             const totalAssets = balances.totalAssets
-            const response = await axios.put('http://localhost:3001/totalAssets', {totalAssets: totalAssets})
+            const response = await axios.post('http://localhost:3001/totalAssets', {
+                id:id,
+                totalAssets: totalAssets,
+                idToken:idToken
+            })
 
             if(response.status !== 200){
                 throw new Error('Failed to update total assets.')
@@ -100,7 +113,7 @@ const Balances = () => {
          let balances = {}
          try{
  
-             const response = await axios.get('http://localhost:3001/Balances')
+             const response = await axios.post('http://localhost:3001/Balances', {idToken:idToken, id:id})
              balances = response.data
              
              if((balances.totalAvailableFunds - withdraw) < 0){
@@ -118,7 +131,11 @@ const Balances = () => {
          try{
 
             const totalAvailableFunds = balances.totalAvailableFunds
-            const response = await axios.put('http://localhost:3001/totalAvailableFunds', {totalAvailableFunds:totalAvailableFunds})
+            const response = await axios.post('http://localhost:3001/totalAvailableFunds', {
+                id:id,
+                totalAvailableFunds:totalAvailableFunds,
+                idToken:idToken
+            })
 
             if(response.status !== 200){
                 throw new Error('Unable to update Total Available Funds.')
@@ -131,7 +148,11 @@ const Balances = () => {
          try{
 
             const totalAssets = balances.totalAssets
-            const response = await axios.put('http://localhost:3001/totalAssets', {totalAssets:totalAssets})
+            const response = await axios.post('http://localhost:3001/totalAssets', {
+                id:id,
+                totalAssets:totalAssets,
+                idToken:idToken
+            })
 
             if(response.status !== 200){
                 throw new Error('Unable to update Total Assets.')
@@ -151,6 +172,7 @@ const Balances = () => {
 
     return(
        <Fragment>
+           <MainNavigation />
             <div className={classes.BalancesContainer}>
             <div className={classes.TitleContainer}>
                 <p className={classes.Title}>Balances</p>
