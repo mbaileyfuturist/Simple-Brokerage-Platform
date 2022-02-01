@@ -82,7 +82,7 @@ const Home = () => {
     }
 
     const searchContent = (
-        <Fragment className={classes.SearchWrapper}>
+        <Fragment>
                 <input className={classes.Search} placeholder={'symbol'} onChange={changeSecurity}/>
                 <Button className={classes.searchButton} value='Search' onClick={searchStock}/>
         </Fragment>
@@ -98,7 +98,7 @@ const Home = () => {
                 <p className={classes.title}>Securities</p>
                 {
                     securities.map(security => {
-                        return <Stock key={security.ticker} ticker={security.ticker} name={security.name} type={security.type} />
+                        return <Stock title='observeStock' key={security.ticker} ticker={security.ticker} name={security.name} type={security.type} />
                     })
                 }
             </div>
@@ -107,7 +107,7 @@ const Home = () => {
                 <p className={classes.title}>Watch List</p>
                 {
                     watchList.map(security => {
-                        return <Stock key={'watch-list-' + security.ticker} ticker={security.ticker} name={security.name} type={security.type} watchList={security.watchList}/>
+                        return <Stock title='watchedStock' key={'watch-list-' + security.ticker} ticker={security.ticker} name={security.name} type={security.type} watchList={security.watchList}/>
                     })
                 }
             </div>

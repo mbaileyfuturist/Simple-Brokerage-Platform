@@ -210,36 +210,36 @@ const Authenticaion = () => {
                     <p className={classes.formTitle}>Sign Up</p>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='text' value={firstName} onChange={changeFirstName} placeholder='first name'/>
+                    <Input title='input' className={classes.input} type='text' value={firstName} onChange={changeFirstName} placeholder='first name'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='text' value={lastName} onChange={changeLastName} placeholder='last name'/>
+                    <Input title='input' className={classes.input} type='text' value={lastName} onChange={changeLastName} placeholder='last name'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='number' value={age} onChange={changeAge} placeholder='age' placeholder='age'/>
+                    <Input title='input' className={classes.input} type='number' value={age} onChange={changeAge} placeholder='age' placeholder='age'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='text' value={address} onChange={changeAddress} placeholder='address'/>
+                    <Input title='input' className={classes.input} type='text' value={address} onChange={changeAddress} placeholder='address'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='text' value={city} onChange={changeCity} placeholder='city'/>
+                    <Input title='input' className={classes.input} type='text' value={city} onChange={changeCity} placeholder='city'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='text' value={state} onChange={changeState} placeholder='state'/>
+                    <Input title='input' className={classes.input} type='text' value={state} onChange={changeState} placeholder='state'/>
                 </div>
 
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='email' value={email} onChange={changeEmail} placeholder='email'/>
+                    <Input title='input' className={classes.input} type='email' value={email} onChange={changeEmail} placeholder='email'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='text' value={userName} onChange={changeUserName} placeholder='username'/>
+                    <Input title='input' className={classes.input} type='text' value={userName} onChange={changeUserName} placeholder='username'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='password' value={password} onChange={changePassword} placeholder='password'/>
+                    <Input title='input' className={classes.input} type='password' value={password} onChange={changePassword} placeholder='password'/>
                 </div>
 
                 <div className={classes.buttonContainer}>
-                    <Button className={classes.button}  value='submit' type='submit'/>
+                    <Button title='signUpButton' className={classes.button}  value='submit' type='submit'/>
                 </div>
                 <p onClick={toggleExistingUser} className={classes.subText}>Already an existing user? Login here.</p>
             </form>
@@ -256,14 +256,14 @@ const Authenticaion = () => {
                     <p className={classes.formTitle}>Log In</p>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='email' value={email} onChange={changeEmail} placeholder='email'/>
+                    <Input className={classes.input} title='input' type='email' value={email} onChange={changeEmail} placeholder='email'/>
                 </div>
                 <div className={classes.inputContainer}>
-                    <Input className={classes.input} type='password' value={password} onChange={changePassword} placeholder='password'/>
+                    <Input className={classes.input} title='input' type='password' value={password} onChange={changePassword} placeholder='password'/>
                 </div>
 
                 <div className={classes.buttonContainer}>
-                    <Button className={classes.button} value='submit' type='submit'/>
+                    <Button title='logInButton' className={classes.button} value='Log In' type='submit'/>
                 </div>
                 <p onClick={toggleExistingUser} className={classes.subText}>Dont have an account? Click here to create one.</p>
             </form>

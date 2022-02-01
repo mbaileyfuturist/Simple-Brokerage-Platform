@@ -50,7 +50,7 @@ const Stock = props => {
     }
 
     return(
-        <div className={classes.stockContainer}>
+        <div title={props.title} className={classes.stockContainer}>
             <div className={classes.textContainer}>
                 <p className={classes.Title}>{props.ticker + ' ' + props.name + ' ' + props.type}</p> 
             </div>
